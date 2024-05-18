@@ -19,15 +19,15 @@ urlpatterns = [
     path('product-delete/<str:code>', views.product_delete, name='product_delete'),
 
     #EnterProduct
-    path('enter-product-create', views.enter_product_create, name='enter_product_create'),
-    path('enter-product-list', views.enter_product_list, name='enter_product_list'),
+    path('enter-product-create', views.enterproduct_create, name='enterproduct_create'),
+    path('enter-product-list', views.enterproduct_list, name='enterproduct_list'),
 
     #OutProduct
-    path('out-product-create', views.out_product_create, name='out_product_create'),
-    path('out-product-list', views.out_product_list, name='out_product_list'),
+    path('out-product-create', views.outproduct_create, name='outproduct_create'),
+    path('out-product-list', views.outproduct_list, name='outproduct_list'),
 
 
     #ReturnProduct
-    path('return-product-create', views.return_product_create, name='return_product_create'),
-    path('return-product-list', views.return_product_list, name='return_product_list'),
+    path('return-product-create', views.returnproduct_create, name='returnproduct_create'),
+    path('return-product-list', views.returnproduct_list, name='returnproduct_list'),
 ]

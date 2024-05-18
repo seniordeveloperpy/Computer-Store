@@ -45,11 +45,16 @@ def log_out(request):
 @login_required(login_url='log_in')
 def category_create(request):
     if request.method == 'POST':
-        category = request.POST['category']
-        models.Category.objects.create(category=category)
-        return redirect('category_list')
+        category_name = request.POST.get('category')
+        if category_name:
+            models.Category.objects.create(category=category_name)
+            return redirect('category_list')
+        else:
+
+            return render(request, 'category/create.html', {'error': 'Category name is required'})
     else:
         return render(request, 'category/create.html')
+
 
 
 @login_required(login_url='log_in')
@@ -199,6 +204,50 @@ def enterproduct_list(request):
     }
     return render(request, 'enter/list.html', context)
 
+#OutProduct
+@login_required(login_url='log_in')
+def outproduct_create(request):
+    category = models.Category.objects.all()
+    products = models.Product.objects.all()
+    context = {
+        'category': category,
+        'products': products,
+    }
+    if request.method == 'POST':
+        models.EnterProduct.objects.create(
+            product=models.Product.objects.get(id=request.POST.get('product')),
+            quantity=request.POST.get('quantity'),
+            date=request.POST.get('date'),
+)
+        return redirect('outproduct_list')
+    return render(request, 'outs/create.html', context)
+
+
+@login_required(login_url='log_in')
+def outproduct_list(request):
+    category = models.Category.objects.all()
+    products = models.Product.objects.filter(category=category)
+    category_code = request.GET.get('category_code')
+    if category_code:
+        filtered_items = {}
+        for key, value in request.GET.items():
+            if value and not value == '0':
+                if key == 'start_date':
+                    key = 'date__gte'
+                elif key == 'end_date':    
+                    key = 'date__lte'
+                elif key == 'name':
+                    key = 'product__name__icontains'
+                filtered_items[key] = value
+
+        enteries = models.EnterProduct.objects.filter(**filtered_items)
+    context = {
+        'products': products,
+        'enteries': enteries,
+        'category': category,
+        'category_code': category_code,
+    }
+    return render(request, 'outs/list.html', context)
 
 #ReturnProduct
 @login_required(login_url='log_in')
@@ -223,7 +272,7 @@ def returnproduct_create(request):
 
 @login_required(login_url='log_in')
 def returnproduct_list(request):
-    category = models.Category.objects.all()
+    category = models.Category.objects.first()
     product = models.Product.filter(category=category)
     returns = models.ReturnedProduct.filter(product=product)
     context = {
