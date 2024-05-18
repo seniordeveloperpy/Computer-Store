@@ -76,7 +76,7 @@ class EnterProduct(CodeGenerate):
             object = EnterProduct.objects.get(id=self.id)
             self.product.quantity -= object.quantity
         
-        self.product.quantity += self.quantity
+        self.product.quantity += int(self.quantity)
         self.product.save()
         super(EnterProduct, self).save(*args, **kwargs)
 
@@ -95,7 +95,7 @@ class OutProduct(CodeGenerate):
             object = OutProduct.objects.get(id=self.id)
             self.product.quantity += object.quantity
 
-        self.product.quantity -= self.quantity
+        self.product.quantity -= int(self.quantity)
         self.product.save()
         super(OutProduct, self).save(*args, **kwargs)
 

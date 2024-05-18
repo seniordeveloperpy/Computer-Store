@@ -8,15 +8,15 @@ urlpatterns = [
 
     #Category
     path('category-create', views.category_create, name='category_create'),
-    path('category-update/<str:code>', views.category_update, name='category_update'),
+    path('category-update/<int:id>/', views.category_update, name='category_update'),
     path('category-list', views.category_list, name='category_list'),
-    path('category-delete/<str:code>', views.category_delete, name='category_delete'),
+    path('category-delete/<int:id>/', views.category_delete, name='category_delete'),
 
     #Product
     path('product-create', views.product_create, name='product_create'),
     path('product-list', views.product_list, name='product_list'),
-    path('product-update/<str:code>', views.product_update, name='product_update'),
-    path('product-delete/<str:code>', views.product_delete, name='product_delete'),
+    path('product-update/<str:code>/', views.product_update, name='product_update'),
+    path('product-delete/<str:code>/', views.product_delete, name='product_delete'),
 
     #EnterProduct
     path('enter-product-create', views.enterproduct_create, name='enterproduct_create'),

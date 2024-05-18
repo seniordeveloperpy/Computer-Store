@@ -14,7 +14,7 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Bosh sahifa</a></li>
-                            <li class="breadcrumb-item">Qaytarilgan mahsulotlar</li>
+                            <li class="breadcrumb-item">Chiqimlarni yaratish</li>
                         </ul>
                     </div>
                 </div>
@@ -25,29 +25,30 @@
         <div class="row">
 
             <div class="col-md-12">
-                <!-- [ Hover-table ] start -->
                 <div class="card">
                     <div class="card-header">
-                        <h5>Qaytarilgan mahsulotlar</h5>
+                        <h5>Chiqimlarni yaratish</h5>
                     </div>
-                    <div class="card-block">
-                        <div class="dt-responsive table-responsive">
-                            <table id="simpletable" class="table table-striped table-bordered nowrap">
-
-                                <tbody>
-                                    {% for re in returns %}
-                                    <tr>
-                                        <td>{{ re.outery.product.name }}</td>
-                                        <td>{{ re.quantity }}</td>
-                                    </tr>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Mahsulotlar </label>
+                                <select class="form-control" name="product">
+                                    {% for product in products %}
+                                    <option value="{{ product.id }}">{{ product.name }}</option>
                                     {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                
-            
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Miqdor</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" name="quantity">
+                            </div>
+                            <button class="btn btn-primary" type="submit">Saqlash</button>
+                        </form>
+                            
+        </div>
+        <!-- [ Main Content ] end -->
     </div>
 </div>
 <!-- [ Main Content ] end -->
